@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders List</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background: #f4f4f9; }
+        .container { max-width: 1000px; margin: auto; }
+        h1 { color: #2c3e50; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #f2f2f2; }
+        tr:hover { background: #f9f9f9; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .empty { text-align: center; color: #7f8c8d; font-style: italic; padding: 40px; }
+        .info { text-align: center; color: #7f8c8d; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Orders List</h1>
+
+        {{if not .}}
+            <p class="empty">Заказов пока нет.</p>
+            <p class="info">Запустите <code>go run publisher.go</code> в терминале, чтобы добавить заказ.</p>
+        {{else}}
+            <table>
+                <tr>
+                    <th>Order UID</th>
+                    <th>Customer</th>
+                    <th>Track #</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+                {{range .}}
+                <tr>
+                    <td><a href="/order/{{.OrderUID}}">{{.OrderUID}}</a></td>
+                    <td>{{.CustomerID}}</td>
+                    <td>{{.TrackNumber}}</td>
+                    <td>{{.Payment.Amount}} {{.Payment.Currency}}</td>
+                    <td>{{.DateCreated}}</td>
+                </tr>
+                {{end}}
+            </table>
+        {{end}}
+    </div>
+</body>
+</html>

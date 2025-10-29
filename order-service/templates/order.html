@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order {{.OrderUID}}</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background: #f9f9f9; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        .section { margin: 25px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Order: {{.OrderUID}}</h1>
+        
+        <div class="section">
+            <h2>Delivery</h2>
+            <p><strong>Name:</strong> {{.Delivery.Name}}</p>
+            <p><strong>Phone:</strong> {{.Delivery.Phone}}</p>
+            <p><strong>Address:</strong> {{.Delivery.Address}}, {{.Delivery.City}}, {{.Delivery.Zip}}</p>
+            <p><strong>Email:</strong> {{.Delivery.Email}}</p>
+        </div>
+
+        <div class="section">
+            <h2>Payment</h2>
+            <p><strong>Amount:</strong> {{.Payment.Amount}} {{.Payment.Currency}}</p>
+            <p><strong>Provider:</strong> {{.Payment.Provider}}</p>
+            <p><strong>Transaction:</strong> {{.Payment.Transaction}}</p>
+        </div>
+
+        <div class="section">
+            <h2>Items</h2>
+            <table>
+                <tr><th>Name</th><th>Brand</th><th>Size</th><th>Price</th><th>Total</th></tr>
+                {{range .Items}}
+                <tr>
+                    <td>{{.Name}}</td>
+                    <td>{{.Brand}}</td>
+                    <td>{{.Size}}</td>
+                    <td>{{.Price}}</td>
+                    <td>{{.TotalPrice}}</td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+
+        <p><small>Date: {{.DateCreated}}</small></p>
+    </div>
+</body>
+</html>
