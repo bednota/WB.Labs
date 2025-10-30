@@ -18,13 +18,13 @@ var (
 func StartServer(cache *cache.OrderCache) {
     r := mux.NewRouter()
 
-    // === ГЛАВНАЯ — СПИСОК ЗАКАЗОВ ===
+
     r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         orders := cache.List()
         listTmpl.Execute(w, orders)
     })
 
-    // === ДЕТАЛЬНАЯ СТРАНИЦА ЗАКАЗА ===
+   
     r.HandleFunc("/order/{id}", func(w http.ResponseWriter, r *http.Request) {
         vars := mux.Vars(r)
         id := vars["id"]
@@ -41,4 +41,5 @@ func StartServer(cache *cache.OrderCache) {
 
     log.Println("HTTP server on :8080")
     log.Fatal(http.ListenAndServe(":8080", r))
+
 }
